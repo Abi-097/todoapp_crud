@@ -17,7 +17,7 @@ const AddTask = () => {
     }
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/topics",
+        `http://localhost:3000/api/topics`,
         {
           title: title,
           description: description,
