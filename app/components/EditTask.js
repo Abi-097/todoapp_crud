@@ -38,6 +38,35 @@ const EditTask = ({ id }) => {
     fetchData();
   }, [id]);
 
+  const handleTitleChange = (e) => {
+    setTopicData({ ...topicData, title: e.target.value });
+  };
+
+  const handleDescriptionChange = (e) => {
+    setTopicData({ ...topicData, description: e.target.value });
+  };
+
+  const handleUpdate = async () => {
+    try {
+      const res = await axios.put(
+        `http://localhost:3000/api/topics/${id}`,
+        {
+          title: topicData.title,
+          description: topicData.description,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Update Response:", res.data);
+      // Handle success or error
+    } catch (error) {
+      console.error("Update Error:", error.message);
+      // Handle error
+    }
+  };
   return (
     <div>
       <MdEditSquare
@@ -45,19 +74,13 @@ const EditTask = ({ id }) => {
       />
       <dialog id={`my_modal_${id}`} className="modal">
         <div className="modal-box">
-          <div>
-            EditTask component for task with ID: value={topicData.title}
-          </div>
-
           <label className="input input-bordered flex items-center gap-2">
             Title
             <input
               type="text"
               className="grow"
               value={topicData.title}
-              onChange={(e) =>
-                setTopicData({ ...topicData, title: e.target.value })
-              }
+              onChange={handleTitleChange}
             />
           </label>
           <br />
@@ -67,13 +90,13 @@ const EditTask = ({ id }) => {
             className="input input-bordered w-full max-w-xs"
             style={{ width: "100%", maxWidth: "none" }}
             value={topicData.description}
-            onChange={(e) =>
-              setTopicData({ ...topicData, description: e.target.value })
-            } //
+            onChange={handleDescriptionChange}
           />
           <br />
           <br />
-          <CustomButton className="btn btn-warning">Update Task</CustomButton>
+          <CustomButton className="btn btn-warning" onClick={handleUpdate}>
+            Update Task
+          </CustomButton>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
