@@ -10,8 +10,6 @@ export default function Home() {
         <AddTask />
       </div>
       <ToDoList />
-      <ToDoList />
-      <ToDoList />
     </main>
   );
 }

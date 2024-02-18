@@ -2,7 +2,8 @@
 import { FaPlus } from "react-icons/fa";
 import CustomButton from "./Button";
 import { MdEditSquare } from "react-icons/md";
-const EditTask = () => {
+import { useEffect } from "react";
+const EditTask = ({ id }) => {
   return (
     <div>
       <MdEditSquare
@@ -11,9 +12,10 @@ const EditTask = () => {
 
       <dialog id="my_modal_3" className="modal">
         <div className="modal-box">
+          <div>EditTask component for task with ID: {id}</div>
           <label className="input input-bordered flex items-center gap-2">
             Title
-            <input type="text" className="grow" placeholder="Daisy" />
+            <input type="text" className="grow" placeholder="" />
           </label>
           <br />
           <input
