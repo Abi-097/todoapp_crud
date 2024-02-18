@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RemoveBtn from "./RemoveBtn";
 import EditTask from "./EditTask";
-
 const ToDoList = () => {
   const [topics, setTopics] = useState([]);
 
@@ -24,7 +23,9 @@ const ToDoList = () => {
 
     fetchData();
   }, []);
-
+  const removeTopicFromState = (id) => {
+    setTopics(topics.filter((topic) => topic._id !== id));
+  };
   return (
     <>
       {topics.map((topic, index) => (
@@ -38,7 +39,7 @@ const ToDoList = () => {
               <p>{topic.description}</p>
             </div>
             <div className="flex gap-2">
-              <RemoveBtn />
+              <RemoveBtn id={topic._id} onDelete={removeTopicFromState} />
               <EditTask id={topic._id} />
             </div>
           </div>

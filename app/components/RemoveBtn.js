@@ -1,8 +1,25 @@
 import { ImBin2 } from "react-icons/im";
-const RemoveBtn = () => {
+import axios from "axios";
+
+const RemoveBtn = ({ id, onDelete }) => {
+  const removeTopic = async () => {
+    const confirmed = confirm("Are you sure?");
+    if (confirmed) {
+      try {
+        const res = await axios.delete(
+          `http://localhost:3000/api/topics?id=${id}`
+        );
+        console.log("Topic removed successfully:", res.data);
+        onDelete(id);
+      } catch (error) {
+        console.error("Error removing topic:", error);
+      }
+    }
+  };
+
   return (
     <div>
-      <button className="text-red-400">
+      <button className="text-red-400" onClick={removeTopic}>
         <ImBin2 />
       </button>
     </div>
