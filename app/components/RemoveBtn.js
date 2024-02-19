@@ -7,7 +7,7 @@ const RemoveBtn = ({ id, onDelete }) => {
     if (confirmed) {
       try {
         const res = await axios.delete(
-          `http://localhost:3000/api/topics?id=${id}`
+          `https://todoapp-crud.vercel.app/api/topics?id=${id}`
         );
         console.log("Topic removed successfully:", res.data);
         onDelete(id);

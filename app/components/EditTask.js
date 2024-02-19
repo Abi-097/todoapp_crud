@@ -49,7 +49,7 @@ const EditTask = ({ id }) => {
   const handleUpdate = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/topics/${id}`,
+        `https://todoapp-crud.vercel.app/api/topics/${id}`,
         {
           title: topicData.title,
           description: topicData.description,
