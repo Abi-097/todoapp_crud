@@ -10,18 +10,15 @@ const EditTask = ({ id }) => {
     title: "",
     description: "",
   });
-
+  const [updateStatus, setUpdateStatus] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          `https://todoapp-crud.vercel.app/api/topics/${id}`,
-          {
-            headers: {
-              "Cache-Control": "no-store",
-            },
-          }
-        );
+        const res = await axios.get(`http://localhost:3000/api/topics/${id}`, {
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        });
         console.log("Response:", res.data.topic._id);
         if (!res.data || !res.data.topic) {
           throw new Error("No data received from server");
@@ -52,7 +49,7 @@ const EditTask = ({ id }) => {
   const handleUpdate = async () => {
     try {
       const res = await axios.put(
-        `https://todoapp-crud.vercel.app/api/topics/${id}`,
+        `http://localhost:3000/api/topics/${id}`,
         {
           title: topicData.title,
           description: topicData.description,
@@ -64,9 +61,11 @@ const EditTask = ({ id }) => {
         }
       );
       console.log("Update Response:", res.data);
+      setUpdateStatus("success");
       // Handle success or error
     } catch (error) {
       console.error("Update Error:", error.message);
+      setUpdateStatus("error");
       // Handle error
     }
   };
@@ -75,8 +74,10 @@ const EditTask = ({ id }) => {
       <MdEditSquare
         onClick={() => document.getElementById(`my_modal_${id}`).showModal()}
       />
+      <div> The ID is {id}</div>
       <dialog id={`my_modal_${id}`} className="modal">
         <div className="modal-box">
+          <div> The ID is {id}</div>
           <label className="input input-bordered flex items-center gap-2">
             Title
             <input
@@ -97,6 +98,19 @@ const EditTask = ({ id }) => {
           />
           <br />
           <br />
+          {updateStatus === "success" && (
+            <div role="alert" className="alert alert-success">
+              {" "}
+              <span>Your task has been updated successfully!</span>
+            </div>
+          )}
+
+          {updateStatus === "error" && (
+            <div div role="alert" className="alert alert-error">
+              {" "}
+              <span>Something went wrong!</span>
+            </div>
+          )}
           <CustomButton className="btn btn-warning" onClick={handleUpdate}>
             Update Task
           </CustomButton>
