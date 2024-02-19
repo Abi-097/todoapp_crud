@@ -14,11 +14,14 @@ const EditTask = ({ id }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/topics/${id}`, {
-          headers: {
-            "Cache-Control": "no-store",
-          },
-        });
+        const res = await axios.get(
+          `https://todoapp-crud.vercel.app/api/topics/${id}`,
+          {
+            headers: {
+              "Cache-Control": "no-store",
+            },
+          }
+        );
         console.log("Response:", res.data.topic._id);
         if (!res.data || !res.data.topic) {
           throw new Error("No data received from server");
@@ -49,7 +52,7 @@ const EditTask = ({ id }) => {
   const handleUpdate = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/topics/${id}`,
+        `https://todoapp-crud.vercel.app/api/topics/${id}`,
         {
           title: topicData.title,
           description: topicData.description,

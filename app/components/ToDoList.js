@@ -9,11 +9,14 @@ const ToDoList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/topics`, {
-          headers: {
-            "Cache-Control": "no-store",
-          },
-        });
+        const response = await axios.get(
+          `https://todoapp-crud.vercel.app/api/topics`,
+          {
+            headers: {
+              "Cache-Control": "no-store",
+            },
+          }
+        );
 
         setTopics(response.data.topics);
       } catch (error) {
